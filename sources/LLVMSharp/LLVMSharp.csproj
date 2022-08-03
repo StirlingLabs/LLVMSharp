@@ -16,9 +16,9 @@
     <LangVersion>10</LangVersion>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="libLLVM" Version="14.0.0" />
-  </ItemGroup>
+  <PropertyGroup Condition="'$(CI)'!='' And '$(RID)'==''">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\LLVMSharp.Interop\LLVMSharp.Interop.csproj">

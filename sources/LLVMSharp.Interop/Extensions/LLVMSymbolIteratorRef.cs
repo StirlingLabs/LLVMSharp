@@ -21,7 +21,7 @@ namespace LLVMSharp.Interop
 
         public static bool operator !=(LLVMSymbolIteratorRef left, LLVMSymbolIteratorRef right) => !(left == right);
 
-        public override bool Equals(object obj) => (obj is LLVMSymbolIteratorRef other) && Equals(other);
+        public override bool Equals(object? obj) => (obj is LLVMSymbolIteratorRef other) && Equals(other);
 
         public bool Equals(LLVMSymbolIteratorRef other) => this == other;
 

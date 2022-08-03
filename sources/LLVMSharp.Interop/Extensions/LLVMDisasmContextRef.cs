@@ -21,7 +21,7 @@ namespace LLVMSharp.Interop
 
         public static bool operator !=(LLVMDisasmContextRef left, LLVMDisasmContextRef right) => !(left == right);
 
-        public override bool Equals(object obj) => (obj is LLVMDisasmContextRef other) && Equals(other);
+        public override bool Equals(object? obj) => (obj is LLVMDisasmContextRef other) && Equals(other);
 
         public bool Equals(LLVMDisasmContextRef other) => this == other;
 

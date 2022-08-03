@@ -11,7 +11,7 @@ namespace LLVMSharp.UnitTests
         public void CreateDebugLocation()
         {
             string fileName = Path.GetFileName("DIBuilder.c");
-            string directory = Path.GetDirectoryName(".");
+            string directory = Path.GetDirectoryName(".")!;
             LLVMModuleRef module = LLVMModuleRef.CreateWithName("netscripten");
             module.Target = "asmjs-unknown-emscripten";
             var dIBuilder = module.CreateDIBuilder();

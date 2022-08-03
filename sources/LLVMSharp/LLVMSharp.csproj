@@ -2,25 +2,29 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <TargetFrameworks Condition="'$(TFM)'==''">net6.0;net5.0;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFramework Condition="'$(TFM)'!=''">$(TFM)</TargetFramework>
+    <TargetFramework Condition="'$(TFM)'==''" />
+
+    <RuntimeIdentifiers Condition="'$(RID)'==''">win-x64;linux-x64;osx</RuntimeIdentifiers>
+    <RuntimeIdentifier Condition="'$(RID)'!=''">$(RID)</RuntimeIdentifier>
+    <RuntimeIdentifier Condition="'$(RID)'==''" />
+
     <IncludeContentInPack>false</IncludeContentInPack>
-    <TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Nullable>enable</Nullable>
+    <LangVersion>10</LangVersion>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <Compile Remove="Interop.Extensions/LLVM.ResolveLibrary.cs" />
+  <ItemGroup>
+    <PackageReference Include="libLLVM" Version="14.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="libLLVM" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="Microsoft.Bcl.HashCode" />
-    <PackageReference Include="System.Memory" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\LLVMSharp.Interop\LLVMSharp.Interop.csproj" />
+    <ProjectReference Include="..\LLVMSharp.Interop\LLVMSharp.Interop.csproj">
+      <Properties>TFM=$(TargetFramework);RID=$(RuntimeIdentifier)</Properties>
+      <SetTargetFramework>TargetFramework=$(TargetFramework)</SetTargetFramework>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>

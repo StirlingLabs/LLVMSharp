@@ -27,7 +27,7 @@ namespace LLVMSharp.Interop
 
         public int Count { get; private set; }
 
-        public MarshaledString[] Values { get; private set; }
+        public MarshaledString[]? Values { get; private set; }
 
         public void Dispose()
         {
@@ -47,7 +47,7 @@ namespace LLVMSharp.Interop
         {
             for (int i = 0; i < Count; i++)
             {
-                pDestination[i] = Values[i];
+                pDestination[i] = Values![i];
             }
         }
     }

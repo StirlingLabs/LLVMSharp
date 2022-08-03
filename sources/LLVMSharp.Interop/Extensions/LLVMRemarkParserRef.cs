@@ -21,7 +21,7 @@ namespace LLVMSharp.Interop
 
         public static bool operator !=(LLVMRemarkParserRef left, LLVMRemarkParserRef right) => !(left == right);
 
-        public override bool Equals(object obj) => (obj is LLVMRemarkParserRef other) && Equals(other);
+        public override bool Equals(object? obj) => (obj is LLVMRemarkParserRef other) && Equals(other);
 
         public bool Equals(LLVMRemarkParserRef other) => this == other;
 

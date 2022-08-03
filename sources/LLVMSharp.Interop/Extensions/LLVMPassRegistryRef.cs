@@ -21,7 +21,7 @@ namespace LLVMSharp.Interop
 
         public static bool operator !=(LLVMPassRegistryRef left, LLVMPassRegistryRef right) => !(left == right);
 
-        public override bool Equals(object obj) => (obj is LLVMPassRegistryRef other) && Equals(other);
+        public override bool Equals(object? obj) => (obj is LLVMPassRegistryRef other) && Equals(other);
 
         public bool Equals(LLVMPassRegistryRef other) => this == other;
 

@@ -21,7 +21,7 @@ namespace LLVMSharp.Interop
 
         public static bool operator !=(thinlto_code_gen_t left, thinlto_code_gen_t right) => !(left == right);
 
-        public override bool Equals(object obj) => (obj is thinlto_code_gen_t other) && Equals(other);
+        public override bool Equals(object? obj) => (obj is thinlto_code_gen_t other) && Equals(other);
 
         public bool Equals(thinlto_code_gen_t other) => this == other;
 

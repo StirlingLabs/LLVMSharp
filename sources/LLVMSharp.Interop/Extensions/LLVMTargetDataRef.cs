@@ -23,7 +23,7 @@ namespace LLVMSharp.Interop
 
         public static LLVMTargetDataRef FromStringRepresentation(ReadOnlySpan<char> stringRep) => LLVM.CreateTargetData(new MarshaledString(stringRep));
 
-        public override bool Equals(object obj) => (obj is LLVMTargetDataRef other) && Equals(other);
+        public override bool Equals(object? obj) => (obj is LLVMTargetDataRef other) && Equals(other);
 
         public bool Equals(LLVMTargetDataRef other) => this == other;
 

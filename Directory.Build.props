@@ -71,4 +71,22 @@
     <UseSharedCompilation>true</UseSharedCompilation>
   </PropertyGroup>
 
+  <!-- Settings that append the existing setting value -->
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);$(OS)</DefineConstants>
+  </PropertyGroup>
+
+  <!-- Settings that are only set for CI builds -->
+  <PropertyGroup Condition="'$(GITHUB_RUN_ID)' != ''">
+    <PackageVersion Condition="'$(EXCLUDE_RUN_ID_FROM_PACKAGE)' != 'true'">$(Version).$(GITHUB_RUN_ID)</PackageVersion>
+  </PropertyGroup>
+
+  <!-- Settings that allow testing to work by default -->
+  <PropertyGroup Condition="'$(RuntimeIdentifier)' == '' AND '$(Contin)' != 'true'">
+    <RuntimeIdentifier>$(NETCoreSdkRuntimeIdentifier)</RuntimeIdentifier>
+    <RuntimeIdentifier Condition="'$(OVERRIDE_RUNTIME_IDENTIFIER)' != ''">$(OVERRIDE_RUNTIME_IDENTIFIER)</RuntimeIdentifier>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+  </ItemGroup>
 </Project>

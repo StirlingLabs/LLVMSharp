@@ -148,7 +148,7 @@ namespace LLVMSharp.Interop
             }
         }
 
-        public override bool Equals(object obj) => (obj is LLVMPassManagerRef other) && Equals(other);
+        public override bool Equals(object? obj) => (obj is LLVMPassManagerRef other) && Equals(other);
 
         public bool Equals(LLVMPassManagerRef other) => this == other;
 

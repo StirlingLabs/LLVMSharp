@@ -111,7 +111,7 @@ namespace LLVMSharp.Interop
 
         public static bool operator !=(LLVMTargetRef left, LLVMTargetRef right) => !(left == right);
 
-        public override bool Equals(object obj) => (obj is LLVMTargetRef other) && Equals(other);
+        public override bool Equals(object? obj) => (obj is LLVMTargetRef other) && Equals(other);
 
         public bool Equals(LLVMTargetRef other) => this == other;
 

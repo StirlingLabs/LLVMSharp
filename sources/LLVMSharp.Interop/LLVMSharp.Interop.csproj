@@ -2,20 +2,52 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
+
+    <TargetFrameworks Condition="'$(TFM)'==''">net6.0;net5.0;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFramework Condition="'$(TFM)'!=''">$(TFM)</TargetFramework>
+    <TargetFramework Condition="'$(TFM)'==''" />
+
+    <RuntimeIdentifiers Condition="'$(RID)'==''">win-x64;linux-x64;osx</RuntimeIdentifiers>
+    <RuntimeIdentifier Condition="'$(RID)'!=''">$(RID)</RuntimeIdentifier>
+    <RuntimeIdentifier Condition="'$(RID)'==''" />
+
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Nullable>enable</Nullable>
+    <LangVersion>10</LangVersion>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <Compile Remove="Extensions/LLVM.ResolveLibrary.cs" />
-  </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="libLLVM" />
+    <PackageReference Include="libLLVM" Version="14.0.0" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="Microsoft.Bcl.HashCode" />
-    <PackageReference Include="System.Memory" />
+  <!-- Package versions for package references across all projects -->
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard'))">
+    <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+    <PackageReference Include="System.Memory" Version="4.5.4" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(RuntimeIdentifier)'==''">
+    <Content Include="runtimes/**/*" Exclude="runtimes/**/.keep">
+      <Pack>True</Pack>
+      <PackageCopyToOutput>True</PackageCopyToOutput>
+      <PackagePath>%(Identity)</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Link>%(Identity)</Link>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(RuntimeIdentifier)'!=''">
+    <ContentWithTargetPath Include="runtimes/$(RuntimeIdentifier)/native/*" Exclude="runtimes/$(RuntimeIdentifier)/native/.keep">
+      <Pack>False</Pack>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Link>%(Filename)%(Extension)</Link>
+      <TargetPath>%(Filename)%(Extension)</TargetPath>
+    </ContentWithTargetPath>
   </ItemGroup>
 
 </Project>

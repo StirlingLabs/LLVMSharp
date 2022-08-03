@@ -21,7 +21,7 @@ namespace LLVMSharp.Interop
 
         public static bool operator !=(LLVMJITEventListenerRef left, LLVMJITEventListenerRef right) => !(left == right);
 
-        public override bool Equals(object obj) => (obj is LLVMJITEventListenerRef other) && Equals(other);
+        public override bool Equals(object? obj) => (obj is LLVMJITEventListenerRef other) && Equals(other);
 
         public bool Equals(LLVMJITEventListenerRef other) => this == other;
 

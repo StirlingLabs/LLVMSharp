@@ -2,11 +2,31 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0</TargetFrameworks>
+    <TargetFramework>net6.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Nullable>enable</Nullable>
+    <LangVersion>10</LangVersion>
+
+    <RuntimeIdentifier>$(NETCoreSdkRuntimeIdentifier)</RuntimeIdentifier>
+    <RuntimeIdentifier Condition="'$(RuntimeIdentifier)'==''">$([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier)</RuntimeIdentifier>
+    <RuntimeIdentifier Condition="$(RuntimeIdentifier.StartsWith('osx'))">osx</RuntimeIdentifier>
   </PropertyGroup>
 
+  <ItemGroup Condition="'$(CI)'!='' And '$(RID)'==''">
+    <PackageReference Include="GitHubActionsTestLogger" Version="2.0.1" />
+  </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\..\sources\LLVMSharp\LLVMSharp.csproj" />
+    <ProjectReference Include="..\..\sources\LLVMSharp\LLVMSharp.csproj">
+      <Properties>TFM=$(TargetFramework);RID=$(RuntimeIdentifier)</Properties>
+      <SetTargetFramework>TargetFramework=$(TargetFramework)</SetTargetFramework>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
   </ItemGroup>
 
 </Project>

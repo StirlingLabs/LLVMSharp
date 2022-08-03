@@ -9,13 +9,13 @@ namespace LLVMSharp
     {
         public LLVMErrorRef Handle { get; }
 
-        public static bool operator ==(Error left, Error right) => ReferenceEquals(left, right) || (left?.Handle == right?.Handle);
+        public static bool operator ==(Error? left, Error? right) => ReferenceEquals(left, right) || (left?.Handle == right?.Handle);
 
-        public static bool operator !=(Error left, Error right) => !(left == right);
+        public static bool operator !=(Error? left, Error? right) => !(left == right);
 
-        public override bool Equals(object obj) => (obj is Error other) && Equals(other);
+        public override bool Equals(object? obj) => (obj is Error other) && Equals(other);
 
-        public bool Equals(Error other) => this == other;
+        public bool Equals(Error? other) => this == other;
 
         public override int GetHashCode() => Handle.GetHashCode();
 

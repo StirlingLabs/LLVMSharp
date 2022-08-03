@@ -21,7 +21,7 @@ namespace LLVMSharp.Interop
 
         public static bool operator !=(LLVMModuleFlagEntry left, LLVMModuleFlagEntry right) => !(left == right);
 
-        public override bool Equals(object obj) => (obj is LLVMModuleFlagEntry other) && Equals(other);
+        public override bool Equals(object? obj) => (obj is LLVMModuleFlagEntry other) && Equals(other);
 
         public bool Equals(LLVMModuleFlagEntry other) => this == other;
 

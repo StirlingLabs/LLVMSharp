@@ -36,9 +36,9 @@ namespace LLVMSharp
             return Context.GetOrCreate<ReturnInst>(handle);
         }
 
-        public AllocaInst CreateAlloca(Type Ty, Value ArraySize = null, string Name = "") => CreateAlloca(Ty, ArraySize, Name.AsSpan());
+        public AllocaInst CreateAlloca(Type Ty, Value? ArraySize = null, string Name = "") => CreateAlloca(Ty, ArraySize, Name.AsSpan());
 
-        public AllocaInst CreateAlloca(Type Ty, Value ArraySize, ReadOnlySpan<char> Name)
+        public AllocaInst CreateAlloca(Type Ty, Value? ArraySize, ReadOnlySpan<char> Name)
         {
             var handle = Handle.BuildArrayAlloca(Ty.Handle, ArraySize?.Handle ?? default, Name);
             return Context.GetOrCreate<AllocaInst>(handle);
@@ -88,7 +88,7 @@ namespace LLVMSharp
             return Context.GetOrCreate<BranchInst>(handle);
         }
 
-        public CallInst CreateCall(Value Callee, Value[] Args = null, string Name = "") => CreateCall(Callee, Args.AsSpan(), Name.AsSpan());
+        public CallInst CreateCall(Value Callee, Value[]? Args = null, string Name = "") => CreateCall(Callee, Args.AsSpan(), Name.AsSpan());
 
         public CallInst CreateCall(Value Callee, ReadOnlySpan<Value> Args, ReadOnlySpan<char> Name)
         {

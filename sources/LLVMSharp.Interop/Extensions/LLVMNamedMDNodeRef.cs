@@ -21,7 +21,7 @@ namespace LLVMSharp.Interop
 
         public static bool operator !=(LLVMNamedMDNodeRef left, LLVMNamedMDNodeRef right) => !(left == right);
 
-        public override bool Equals(object obj) => (obj is LLVMNamedMDNodeRef other) && Equals(other);
+        public override bool Equals(object? obj) => (obj is LLVMNamedMDNodeRef other) && Equals(other);
 
         public bool Equals(LLVMNamedMDNodeRef other) => this == other;
 

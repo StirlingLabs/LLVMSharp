@@ -21,11 +21,5 @@
     <VSTestLogger>trx</VSTestLogger>
     <VSTestResultsDirectory>$(BaseArtifactsPath)tst/$(Configuration)/</VSTestResultsDirectory>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" IsImplicitlyDefined="true" />
-    <PackageReference Include="NUnit" IsImplicitlyDefined="true" />
-    <PackageReference Include="NUnit3TestAdapter" IsImplicitlyDefined="true" />
-  </ItemGroup>
 
 </Project>

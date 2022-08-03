@@ -14,7 +14,7 @@ namespace LLVMSharp.UnitTests
             var map = new Dictionary<string, object>();
             foreach(var p in obj.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public))
             {
-                map.Add(p.Name, p.GetValue(obj));
+                map.Add(p.Name, p.GetValue(obj)!);
             }
         }
 

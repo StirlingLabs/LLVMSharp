@@ -28,7 +28,7 @@ namespace LLVMSharp.Interop
 
         public int Count { get; private set; }
 
-        public U[] Values { get; private set; }
+        public U[]? Values { get; private set; }
 
         public static implicit operator ReadOnlySpan<U>(in MarshaledArray<T, U> value)
         {

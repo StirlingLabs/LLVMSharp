@@ -113,7 +113,7 @@ namespace LLVMSharp.Interop
 
         public void DIBuilderFinalize() => LLVM.DIBuilderFinalize(this);
 
-        public override bool Equals(object obj) => (obj is LLVMDIBuilderRef other) && Equals(other);
+        public override bool Equals(object? obj) => (obj is LLVMDIBuilderRef other) && Equals(other);
 
         public bool Equals(LLVMDIBuilderRef other) => this == other;
 

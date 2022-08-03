@@ -39,7 +39,7 @@ namespace LLVMSharp.Interop
             }
         }
 
-        public override bool Equals(object obj) => (obj is LLVMExecutionEngineRef other) && Equals(other);
+        public override bool Equals(object? obj) => (obj is LLVMExecutionEngineRef other) && Equals(other);
 
         public bool Equals(LLVMExecutionEngineRef other) => this == other;
 
@@ -65,7 +65,7 @@ namespace LLVMSharp.Interop
             return LLVM.GetFunctionAddress(this, marshaledName);
         }
 
-        public ulong GetGlobalValueAddress(string Name) => GetGlobalValueAddress(Name.AsSpan()); 
+        public ulong GetGlobalValueAddress(string Name) => GetGlobalValueAddress(Name.AsSpan());
 
         public ulong GetGlobalValueAddress(ReadOnlySpan<char> Name)
         {

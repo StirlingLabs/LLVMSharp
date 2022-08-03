@@ -21,7 +21,7 @@ namespace LLVMSharp.Interop
 
         public static bool operator !=(LLVMMemoryBufferRef left, LLVMMemoryBufferRef right) => !(left == right);
 
-        public override bool Equals(object obj) => (obj is LLVMMemoryBufferRef other) && Equals(other);
+        public override bool Equals(object? obj) => (obj is LLVMMemoryBufferRef other) && Equals(other);
 
         public bool Equals(LLVMMemoryBufferRef other) => this == other;
 

@@ -87,7 +87,7 @@ jobs:
     if: needs.skip_check.outputs.should_skip != 'true'
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Get SHA
       id: sha
       run: echo "::set-output name=short::${GITHUB_SHA::7}"
@@ -101,10 +101,7 @@ jobs:
       with:
         name: LLVMSharp-${{ steps.sha.outputs.short }}
         path: |
-          ./artifacts/bin/**/*
-          ./artifacts/log/**/*
-          ./artifacts/pkg/**/*
-          ./artifacts/tst/**/*
+          ./artifacts/**/*
         if-no-files-found: error
 
   test:
@@ -116,6 +113,7 @@ jobs:
           os: [ubuntu-22.04, macos-12, windows-2022]
       fail-fast: false
     steps:
+      - uses: actions/checkout@v3
       - name: Download built artifacts
         uses: actions/download-artifact@v3
       - name: List Files

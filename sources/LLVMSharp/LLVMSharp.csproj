@@ -16,10 +16,6 @@
     <LangVersion>10</LangVersion>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(CI)'!='' And '$(RID)'==''">
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-  </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\LLVMSharp.Interop\LLVMSharp.Interop.csproj">
       <Properties>TFM=$(TargetFramework);RID=$(RuntimeIdentifier)</Properties>

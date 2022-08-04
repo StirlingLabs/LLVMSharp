@@ -16,10 +16,6 @@
     <LangVersion>10</LangVersion>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(CI)'!='' And '$(RID)'==''">
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-  </PropertyGroup>
-
   <!-- Package versions for package references across all projects -->
   <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard'))">
     <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />

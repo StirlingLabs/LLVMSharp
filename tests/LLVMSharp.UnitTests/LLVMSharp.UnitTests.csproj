@@ -19,17 +19,17 @@
   </ItemGroup>
 
   <Choose>
-    <When Condition="'$(CI)'=='' Or Exists('$(BaseArtifactsPath)bin\sources\LLVMSharp\$(Configuration)\net6.0\$(RuntimeIdentifier)\LLVMSharp.dll')">
+    <When Condition="'$(CI)'!='' And Exists('$(BaseArtifactsPath)pkg\Release\LLVMSharp.$(PackageVersion).nupkg')">
+      <ItemGroup>
+        <PackageReference Include="LLVMSharp" Version="$(PackageVersion)" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
       <ItemGroup>
         <ProjectReference Include="..\..\sources\LLVMSharp\LLVMSharp.csproj">
           <Properties>TFM=net6.0;RID=$(RID)</Properties>
           <SetTargetFramework>TargetFramework=net6.0</SetTargetFramework>
         </ProjectReference>
-      </ItemGroup>
-    </When>
-    <Otherwise>
-      <ItemGroup>
-        <PackageReference Include="LLVMSharp" Version="$(PackageVersion)" />
       </ItemGroup>
     </Otherwise>
   </Choose>

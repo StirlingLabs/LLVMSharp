@@ -12,6 +12,10 @@ on:
     - '!gh-pages'
     types: [ opened, reopened, ready_for_review, synchronize ]
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   skip_check:
     name: Run Check
@@ -118,6 +122,9 @@ jobs:
         uses: actions/download-artifact@v3
       - name: List Files
         run: ls -lR
+      - name: Install LLVM 14
+        if: startsWith(matrix.os, 'macos')
+        run: brew install llvm@14
       - name: Test
         run: dotnet test
 

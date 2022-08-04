@@ -10,19 +10,31 @@
 
     <RuntimeIdentifier>$(NETCoreSdkRuntimeIdentifier)</RuntimeIdentifier>
     <RuntimeIdentifier Condition="'$(RuntimeIdentifier)'==''">$([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier)</RuntimeIdentifier>
-    <RuntimeIdentifier Condition="$(RuntimeIdentifier.StartsWith('osx'))">osx</RuntimeIdentifier>
+    <RID Condition="'$(RID)'=='' And '$(RuntimeIdentifier)'!=''">$(RuntimeIdentifier)</RID>
+    <RID Condition="$(RID.StartsWith('osx'))">osx</RID>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(CI)'!='' And '$(RID)'==''">
     <PackageReference Include="GitHubActionsTestLogger" Version="2.0.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\sources\LLVMSharp\LLVMSharp.csproj">
-      <Properties>TFM=$(TargetFramework);RID=$(RuntimeIdentifier)</Properties>
-      <SetTargetFramework>TargetFramework=$(TargetFramework)</SetTargetFramework>
-    </ProjectReference>
-  </ItemGroup>
+  <Choose>
+    <When Condition="'$(CI)'=='' Or Exists('$(BaseArtifactsPath)bin\sources\LLVMSharp\$(Configuration)\net6.0\$(RuntimeIdentifier)\LLVMSharp.dll')">
+      <ItemGroup>
+        <ProjectReference Include="..\..\sources\LLVMSharp\LLVMSharp.csproj">
+          <Properties>TFM=net6.0;RID=$(RID)</Properties>
+          <SetTargetFramework>TargetFramework=net6.0</SetTargetFramework>
+        </ProjectReference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <PackageReference Include="LLVMSharp" Version="$(PackageVersion)" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+
+
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="NUnit" Version="3.13.3" />

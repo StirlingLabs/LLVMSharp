@@ -4,7 +4,6 @@
 #   normalize to Unix-style line endings
 ###############################################################################
 *           text        eol=lf
-
 ###############################################################################
 # Set explicit file behavior to:
 #   treat as text and
@@ -24,16 +23,17 @@
 *.sln       text        eol=lf
 *.targets   text        eol=lf
 *.yml       text        eol=lf
-
 ###############################################################################
 # Set explicit file behavior to:
 #   treat as text and
 #   normalize to Windows-style line endings
 ###############################################################################
 *.sln       text        eol=crlf
-
 ###############################################################################
 # Set explicit file behavior to:
 #   treat as binary
 ###############################################################################
 *.snk       binary
+*.dll filter=lfs diff=lfs merge=lfs -text
+*.so filter=lfs diff=lfs merge=lfs -text
+*.dylib filter=lfs diff=lfs merge=lfs -text

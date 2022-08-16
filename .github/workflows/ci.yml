@@ -127,7 +127,7 @@ jobs:
       - name: List Files
         run: ls -lR
       - name: Test
-        run: dotnet test
+        run: dotnet test --blame --no-restore --no-build
 
   publish:
     name: Push NuPkg to GitHub

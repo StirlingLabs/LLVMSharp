@@ -73,13 +73,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-      <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="README.md" Visible="false"/>
-      <None Include="$(MSBuildThisFileDirectory)LLVMSharp.jpg" Pack="true" PackagePath="LLVMSharp.jpg" Visible="false"/>
-      <None Include="$(MSBuildThisFileDirectory)SL.png" Pack="true" PackagePath="SL.png" Visible="false"/>
+    <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" Link="README.md" PackagePath="README.md" Visible="false"/>
+    <None Include="$(MSBuildThisFileDirectory)LLVMSharp.jpg" Pack="true" Link="LLVMSharp.jpg" PackagePath="LLVMSharp.jpg" Visible="false"/>
+    <None Include="$(MSBuildThisFileDirectory)SL.png" Pack="true" Link="SL.png" PackagePath="image/" Visible="false"/>
   </ItemGroup>
 
   <PropertyGroup>
-    <PackageIcon>SL.png</PackageIcon>
+    <PackageIcon>image/SL.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 

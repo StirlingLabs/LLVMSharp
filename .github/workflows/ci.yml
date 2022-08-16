@@ -120,6 +120,8 @@ jobs:
       env:
         releaseFlag: ${{ needs.skip_check.outputs.release }}
         versionString: ${{ github.ref_name }}
+    - name: List Files
+      run: ls -lR
     - name: Pack
       run: dotnet pack -c Release --no-restore --no-build
     - uses: actions/upload-artifact@v3

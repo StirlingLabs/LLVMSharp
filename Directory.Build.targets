@@ -10,4 +10,12 @@
     MSBuildAllProjects, as that is done by the file that imports us.
   -->
 
+  <Target Name="ValidatePackageFilesExist" BeforeTargets="Build">
+    <ItemGroup>
+      <_ValidatePackageFileExists Include="@(None->WithMetadataValue('Pack','true'))" />
+    </ItemGroup>
+    <Message Importance="high" Text="Validating existance of packable files: @(_ValidatePackageFileExists)" />
+    <Error Condition="!Exists(%(_ValidatePackageFileExists.Identity))" Text="%(_ValidatePackageFileExists.Identity) must exist." />
+  </Target>
+
 </Project>

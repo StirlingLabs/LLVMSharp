@@ -72,7 +72,6 @@
     <BuildInParallel>false</BuildInParallel>
   </PropertyGroup>
 
-
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" Link="README.md" PackagePath="README.md" Visible="false"/>
     <None Include="$(MSBuildThisFileDirectory)LLVMSharp.jpg" Pack="true" Link="LLVMSharp.jpg" PackagePath="LLVMSharp.jpg" Visible="false"/>

@@ -73,9 +73,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" Link="README.md" PackagePath="README.md" Visible="false"/>
-    <None Include="$(MSBuildThisFileDirectory)LLVMSharp.jpg" Pack="true" Link="LLVMSharp.jpg" PackagePath="LLVMSharp.jpg" Visible="false"/>
-    <None Include="$(MSBuildThisFileDirectory)icon.png" Pack="true" Link="icon.png" PackagePath="icon.png" Visible="false"/>
+    <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" Link="README.md" PackagePath="\" Visible="false"/>
+    <None Include="$(MSBuildThisFileDirectory)LLVMSharp.jpg" Pack="true" Link="LLVMSharp.jpg" PackagePath="\" Visible="false"/>
+    <None Include="$(MSBuildThisFileDirectory)icon.png" Pack="true" Link="icon.png" PackagePath="\" Visible="false"/>
   </ItemGroup>
 
   <PropertyGroup>

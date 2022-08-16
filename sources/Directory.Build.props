@@ -22,4 +22,11 @@
     <InternalsVisibleTo Include="$(MSBuildProjectName).UnitTests" Key="$(AssemblyOriginatorPublicKey)" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)../README.md" Pack="true" Link="README.md" PackagePath="\" Visible="false"/>
+    <None Include="$(MSBuildThisFileDirectory)../LLVMSharp.jpg" Pack="true" Link="LLVMSharp.jpg" PackagePath="\" Visible="false"/>
+    <None Include="$(MSBuildThisFileDirectory)../icon.png" Pack="true" Link="icon.png" PackagePath="\" Visible="false"/>
+  </ItemGroup>
+
+
 </Project>

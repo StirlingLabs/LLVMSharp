@@ -2,13 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks Condition="'$(TFM)'==''">net6.0;net5.0;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <TargetFramework Condition="'$(TFM)'!=''">$(TFM)</TargetFramework>
-    <TargetFramework Condition="'$(TFM)'==''" />
-
-    <RuntimeIdentifiers Condition="'$(RID)'==''">win-x64;linux-x64;osx</RuntimeIdentifiers>
-    <RuntimeIdentifier Condition="'$(RID)'!=''">$(RID)</RuntimeIdentifier>
-    <RuntimeIdentifier Condition="'$(RID)'==''" />
+    <TargetFrameworks>net6.0;net5.0;netstandard2.0;netstandard2.1</TargetFrameworks>
 
     <IncludeContentInPack>false</IncludeContentInPack>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -17,10 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LLVMSharp.Interop\LLVMSharp.Interop.csproj">
-      <Properties>TFM=$(TargetFramework);RID=$(RuntimeIdentifier)</Properties>
-      <SetTargetFramework>TargetFramework=$(TargetFramework)</SetTargetFramework>
-    </ProjectReference>
+    <ProjectReference Include="..\LLVMSharp.Interop\LLVMSharp.Interop.csproj" />
   </ItemGroup>
 
 </Project>

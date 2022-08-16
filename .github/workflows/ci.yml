@@ -92,6 +92,8 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
+      with:
+        lfs: true
     - name: Get SHA
       id: sha
       run: echo "::set-output name=short::${GITHUB_SHA::7}"
@@ -118,6 +120,8 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
+        with:
+          lfs: true
       - name: Download built artifacts
         uses: actions/download-artifact@v3
       - name: List Files

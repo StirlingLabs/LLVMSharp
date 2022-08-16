@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main, master ]
     tags:
-    - '!v[0-9].*'
+    - 'v[0-9].*'
 
   pull_request:
     branches:
@@ -23,8 +23,7 @@ jobs:
     runs-on: ubuntu-22.04
     outputs:
       should_skip: ${{ steps.collate_checks.outputs.should_skip }}
-      run_integration: true
-      run_release: ${{ !steps.collate_checks.outputs.should_skip }}
+      release: ${{ steps.released_check.outputs.release }}
     steps:
     -   name: Check if CI is forced
         id: force_ci_check
@@ -50,6 +49,7 @@ jobs:
             startsWith(github.ref_name, 'v')
         run: |
             echo "::set-output name=should_skip::false"
+            echo "::set-output name=release::true"
     -   name: Check if changes pushed
         id: push_new_check
         if: |
@@ -100,7 +100,15 @@ jobs:
     - name: Restore
       run: dotnet restore
     - name: Build
-      run: dotnet build -c Release --no-restore
+      run: |
+        versionTag=""
+        if [[ $version == 'true' ]] ; then
+          versionTag="-p:VersionPrefix=$version"
+        fi
+        dotnet build -c Release $versionTag --no-restore
+      env:
+        release: ${{ needs.skip_check.outputs.release }}
+        version: ${{ github.ref_name }}
     - name: Pack
       run: dotnet pack -c Release --no-restore --no-build
     - uses: actions/upload-artifact@v3
@@ -132,19 +140,20 @@ jobs:
         run: dotnet test --blame --no-restore --no-build
 
   publish:
-    name: Push NuPkg to GitHub
+    name: Publish NuPkg
     needs: [ build, test]
-    if: |
-      false &&
-      github.event_name == 'push' &&
-      github.ref_type == 'branch' &&
-      (github.ref_name == 'main' || github.ref_name == 'master')
-    runs-on: ubuntu-latest
+    if: needs.skip_check.outputs.release == 'true'
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/download-artifact@v3
     - name: List Files
       run: ls -lR
-    - uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: '6.0.x'
-    - run: dotnet nuget push "./artifacts/pkg/Release/*.nupkg" --source https://nuget.pkg.github.com/dotnet/index.json --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
+    - name: Push to GitHub Package Repo
+      run: |
+          dotnet nuget push "./artifacts/pkg/Release/*.nupkg" --source https://nuget.pkg.github.com/dotnet/index.json --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
+    - name: Push to NuGet Package Repo
+      if: |
+          !contains(github.ref_name, '-')
+      run: |
+          echo Would have pushed to NuGet as well
+          #dotnet nuget push "./artifacts/pkg/Release/*.nupkg" --source https://nuget.pkg.github.com/dotnet/index.json --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate

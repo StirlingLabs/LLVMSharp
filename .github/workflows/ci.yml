@@ -124,7 +124,8 @@ jobs:
           lfs: true
       - name: Download built artifacts
         uses: actions/download-artifact@v3
-        working-directory: ./artifacts
+        with: 
+          path: ./artifacts
       - name: List Files
         run: ls -lR
       - name: Test

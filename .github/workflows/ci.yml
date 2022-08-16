@@ -146,7 +146,7 @@ jobs:
 
   publish:
     name: Publish NuPkg
-    needs: [ build, test]
+    needs: [ build, test ]
     if: needs.skip_check.outputs.release == 'true'
     runs-on: ubuntu-22.04
     steps:
@@ -155,11 +155,11 @@ jobs:
         run: ls -lR
       - name: Push to GitHub Package Repo
         run: |
-            dotnet nuget push "./artifacts/pkg/Release/*.nupkg" --source https://nuget.pkg.github.com/dotnet/index.json --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
+            dotnet nuget push "./artifacts/pkg/Release/*.nupkg" --source https://nuget.pkg.github.com/${{github.repository_owner}}/index.json --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
       - name: Push to NuGet Package Repo
         if: |
             !contains(github.ref_name, '-') &&
             !github.event.release.prerelease
         run: |
             echo Would have pushed to NuGet as well
-            #dotnet nuget push "./artifacts/pkg/Release/*.nupkg" --source https://nuget.pkg.github.com/dotnet/index.json --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
+            #dotnet nuget push "./artifacts/pkg/Release/*.nupkg" -k ${{secrets.NUGET_STIRLINGLABS_API_KEY}} -s https://api.nuget.org/v3/index.json --no-symbols --skip-duplicate

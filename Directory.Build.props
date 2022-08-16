@@ -16,7 +16,7 @@
     <BaseArtifactsPathSuffix>$(LLVMSharpProjectCategory)/$(MSBuildProjectName)</BaseArtifactsPathSuffix>
     <BaseIntermediateOutputPath>$(BaseArtifactsPath)obj/$(BaseArtifactsPathSuffix)/</BaseIntermediateOutputPath>
     <BaseOutputPath>$(BaseArtifactsPath)bin/$(BaseArtifactsPathSuffix)/</BaseOutputPath>
-    <RepositoryUrl>https://github.com/dotnet/llvmsharp/</RepositoryUrl>
+    <RepositoryUrl>https://github.com/StirlingLabs/LLVMSharp/</RepositoryUrl>
   </PropertyGroup>
 
   <!-- Default settings that explicitly differ from the Sdk.props defaults  -->
@@ -70,6 +70,16 @@
     </RestoreSources>
     <UseSharedCompilation>true</UseSharedCompilation>
     <BuildInParallel>false</BuildInParallel>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ItemGroup>
+        <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="README.md" Visible="false"/>
+        <None Include="$(MSBuildThisFileDirectory)LLVMSharp.jpg" Pack="true" PackagePath="LLVMSharp.jpg" Visible="false"/>
+        <None Include="$(MSBuildThisFileDirectory)SL.png" Pack="true" PackagePath="SL.png" Visible="false"/>
+    </ItemGroup>
+    <PackageIcon>SL.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <!-- Settings that append the existing setting value -->

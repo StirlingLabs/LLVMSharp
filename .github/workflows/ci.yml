@@ -104,6 +104,8 @@ jobs:
     - name: Get SHA
       id: sha
       run: echo "::set-output name=short::${GITHUB_SHA::7}"
+    - name: NuGet Auth
+      uses: StirlingLabs/GithubNugetAuthAction@main
     - name: Restore
       run: dotnet restore
     - name: Build

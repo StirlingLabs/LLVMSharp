@@ -4,12 +4,12 @@ on:
   push:
     branches: [ main, master ]
     tags:
-    - 'v[0-9].*'
+      - 'v[0-9]+.*'
 
   pull_request:
     branches:
-    - '**'
-    - '!gh-pages'
+      - '**'
+      - '!gh-pages'
     types: [ opened, reopened, ready_for_review, synchronize ]
 
 defaults:
@@ -36,17 +36,27 @@ jobs:
         id: pr_draft_check
         if: |
           github.event.pull_request &&
-          (steps.force_ci_check.outcome == 'skipped' || steps.force_ci_check.outputs.should_skip != 'false')
+          ( steps.force_ci_check.outcome == 'skipped' || steps.force_ci_check.outputs.should_skip != 'false' )
         env:
             draft: ${{ github.event.pull_request.draft }}
         run: |
             echo "::set-output name=should_skip::$draft"
+    -   name: Check if this is Tagged
+        if: |
+            github.ref_type == 'tag'
+        run: |
+            echo Ref named $tag
+        env:
+          tag: ${{ github.ref_name }}
     -   name: Check if this is a Release
         id: released_check
         if: |
-            github.event_name == 'push' &&
-            github.ref_type == 'tag' &&
-            startsWith(github.ref_name, 'v')
+            github.event_name == 'release' || 
+            (
+              github.event_name == 'push' &&
+              github.ref_type == 'tag' &&
+              startsWith(github.ref_name, 'v')
+            )
         run: |
             echo "::set-output name=should_skip::false"
             echo "::set-output name=release::true"
@@ -153,7 +163,8 @@ jobs:
           dotnet nuget push "./artifacts/pkg/Release/*.nupkg" --source https://nuget.pkg.github.com/dotnet/index.json --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
     - name: Push to NuGet Package Repo
       if: |
-          !contains(github.ref_name, '-')
+          !contains(github.ref_name, '-') &&
+          !github.event.release.prerelease
       run: |
           echo Would have pushed to NuGet as well
           #dotnet nuget push "./artifacts/pkg/Release/*.nupkg" --source https://nuget.pkg.github.com/dotnet/index.json --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate

@@ -120,7 +120,7 @@ jobs:
       run: dotnet pack -c Release --no-restore --no-build
     - uses: actions/upload-artifact@v3
       with:
-        name: LLVMSharp-${{ needs.skip_check.outputs.release }}-${{ steps.sha.outputs.short }}
+        name: artifacts
         path: |
           ./artifacts/**/*
         if-no-files-found: error
@@ -139,8 +139,6 @@ jobs:
           lfs: true
       - name: Download built artifacts
         uses: actions/download-artifact@v3
-        with: 
-          path: ./artifacts
       - name: List Files
         run: ls -lR
       - name: Test
@@ -153,8 +151,6 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/download-artifact@v3
-        with: 
-          path: ./artifacts
       - name: List Files
         run: ls -lR
       - name: Push to GitHub Package Repo

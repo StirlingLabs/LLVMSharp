@@ -126,9 +126,6 @@ jobs:
         uses: actions/download-artifact@v3
       - name: List Files
         run: ls -lR
-      - name: Install LLVM 14
-        if: startsWith(matrix.os, 'macos')
-        run: brew install llvm@14
       - name: Test
         run: dotnet test
 

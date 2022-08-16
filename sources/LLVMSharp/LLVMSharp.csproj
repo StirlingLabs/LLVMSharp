@@ -5,7 +5,6 @@
     <TargetFrameworks>net6.0;net5.0;netstandard2.0;netstandard2.1</TargetFrameworks>
     <RuntimeIdentifiers>win-x64;linux-x64;osx</RuntimeIdentifiers>
 
-    <IncludeContentInPack>false</IncludeContentInPack>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Nullable>enable</Nullable>
     <LangVersion>10</LangVersion>

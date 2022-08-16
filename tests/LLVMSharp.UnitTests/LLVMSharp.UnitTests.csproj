@@ -23,7 +23,7 @@
       <ItemGroup>
         <PackageReference Include="LLVMSharp" Version="$(PackageVersion)" />
         <PackageReference Include="LLVMSharp.Interop" Version="$(PackageVersion)" />
-        <PackageReference Include="StirlingLabs.libLLVM" Version="14.0.6.1" />
+        <PackageReference Include="StirlingLabs.libLLVM" Version="14.0.6.2" />
       </ItemGroup>
     </When>
     <Otherwise>

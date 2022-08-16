@@ -111,13 +111,15 @@ jobs:
     - name: Build
       run: |
         versionTag=""
-        if [[ $release == 'true' ]] ; then
-          versionTag="-p:Version=${version:1}"
+        if [[ -z ${releaseFlag+x} ]] || [[ -z "${releaseFlag}" ]] ; then
+          echo "Not a release, won't specify version."
+        else
+          versionTag="-p:VersionPrefix=${versionString:1}"
         fi
         dotnet build -c Release $versionTag --no-restore
       env:
-        release: ${{ needs.skip_check.outputs.release }}
-        version: ${{ github.ref_name }}
+        releaseFlag: ${{ needs.skip_check.outputs.release }}
+        versionString: ${{ github.ref_name }}
     - name: Pack
       run: dotnet pack -c Release --no-restore --no-build
     - uses: actions/upload-artifact@v3

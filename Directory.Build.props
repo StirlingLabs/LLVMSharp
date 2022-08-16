@@ -14,6 +14,8 @@
   <PropertyGroup>
     <BaseArtifactsPath>$(MSBuildThisFileDirectory)artifacts/</BaseArtifactsPath>
     <BaseArtifactsPathSuffix>$(LLVMSharpProjectCategory)/$(MSBuildProjectName)</BaseArtifactsPathSuffix>
+    <BaseIntermediateOutputPath>$(BaseArtifactsPath)obj/$(BaseArtifactsPathSuffix)/</BaseIntermediateOutputPath>
+    <BaseOutputPath>$(BaseArtifactsPath)bin/$(BaseArtifactsPathSuffix)/</BaseOutputPath>
     <RepositoryUrl>https://github.com/dotnet/llvmsharp/</RepositoryUrl>
   </PropertyGroup>
 

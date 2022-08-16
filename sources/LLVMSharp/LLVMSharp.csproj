@@ -3,6 +3,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net6.0;net5.0;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <RuntimeIdentifiers>win-x64;linux-x64;osx</RuntimeIdentifiers>
 
     <IncludeContentInPack>false</IncludeContentInPack>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -10,8 +11,13 @@
     <LangVersion>10</LangVersion>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\LLVMSharp.Interop\LLVMSharp.Interop.csproj" />
+  <!-- Package versions for package references across all projects -->
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard'))">
+    <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+    <PackageReference Include="System.Memory" Version="4.5.4" />
   </ItemGroup>
 
 </Project>

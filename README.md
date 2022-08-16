@@ -1,4 +1,4 @@
-![LLVMSharp](https://github.com/StirlingLabs/LLVMSharp/blob/main/LLVMSharp.jpg)
+![LLVMSharp](https://raw.githubusercontent.com/StirlingLabs/LLVMSharp/main/LLVMSharp.jpg)
 
 LLVMSharp is a multi-platform .NET Standard library for accessing the LLVM infrastructure. The bindings are auto-generated using [ClangSharp](https://github.com/dotnet/clangsharp) parsing LLVM-C header files.
 

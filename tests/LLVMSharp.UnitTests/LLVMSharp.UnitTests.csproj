@@ -21,8 +21,8 @@
   <Choose>
     <When Condition="'$(CI)'!='' And Exists('$(BaseArtifactsPath)pkg\Release\LLVMSharp.$(PackageVersion).nupkg')">
       <ItemGroup>
-        <PackageReference Include="LLVMSharp" Version="$(PackageVersion)" />
-        <PackageReference Include="LLVMSharp.Interop" Version="$(PackageVersion)" />
+        <PackageReference Include="StirlingLabs.LLVMSharp" Version="$(PackageVersion)" />
+        <PackageReference Include="StirlingLabs.LLVMSharp.Interop" Version="$(PackageVersion)" />
         <PackageReference Include="StirlingLabs.libLLVM" Version="14.0.6.2" />
       </ItemGroup>
     </When>

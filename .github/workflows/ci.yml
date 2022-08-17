@@ -158,14 +158,7 @@ jobs:
       - name: Set NuPkg Name Glob
         id: set_nupkg
         run: |
-          echo ${versionString}
-          versionString=${versionString#v}
-          echo ${versionString}
-          versionString=${versionString%-*}
-          echo ${versionString}
-          echo "::set-output name=glob::./artifacts/pkg/Release/StirlingLabs.LLVMSharp.${versionString}.*.nupkg"
-        env:
-          versionString: ${{ github.ref_name }}
+          echo "::set-output name=glob::./artifacts/pkg/Release/StirlingLabs.LLVMSharp.*.nupkg"
       - name: Push to GitHub Package Repo
         run: |
             dotnet nuget push "${glob}" --api-key ${key} --source ${pkgRepo} --skip-duplicate

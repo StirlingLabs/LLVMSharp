@@ -80,6 +80,7 @@
   </ItemGroup>
 
   <PropertyGroup>
+    <RootNamespace>StirlingLabs.$(MSBuildProjectName)</RootNamespace>
     <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>

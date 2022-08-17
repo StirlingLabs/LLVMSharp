@@ -155,12 +155,21 @@ jobs:
       - uses: actions/download-artifact@v3
       - name: List Files
         run: ls -lR
+      - name: Get NuPkg Name
+        id: get_nupkg
+        run:  echo "::set-output name=name::./artifacts/pkg/Release/LLVMSharp.${versionString:1}.*.nupkg"
+        env:
+          versionString: ${{ github.ref_name }}
       - name: Push to GitHub Package Repo
         run: |
-            dotnet nuget push "./artifacts/pkg/Release/*.nupkg" --source ${pkgRepo} --api-key ${key} --skip-duplicate
+            nupkgName="./artifacts/pkg/Release/LLVMSharp.${versionString:1}.*.nupkg"
+            echo $nupkgName
+            dotnet nuget push "${nupkgName}" --source ${pkgRepo} --api-key ${key} --skip-duplicate
         env:
           pkgRepo: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
           key: ${{ secrets.GITHUB_TOKEN }}
+          versionString: ${{ github.ref_name }}
+          name: ${{ steps.get_nupkg.outputs.name }}
       - name: Push to NuGet Package Repo
         if: |
             !contains(github.ref_name, '-') &&

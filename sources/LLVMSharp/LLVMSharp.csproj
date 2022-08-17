@@ -12,4 +12,8 @@
     <LangVersion>10</LangVersion>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LLVMSharp.Interop\LLVMSharp.Interop.csproj" />
+  </ItemGroup>
+
 </Project>

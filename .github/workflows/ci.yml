@@ -155,31 +155,32 @@ jobs:
       - uses: actions/download-artifact@v3
       - name: List Files
         run: ls -lR
-      - name: Get NuPkg Name
-        id: get_nupkg
-        run:  echo "::set-output name=name::./artifacts/pkg/Release/LLVMSharp.${versionString:1}.*.nupkg"
+      - name: Set NuPkg Name Glob
+        id: set_nupkg
+        run: |
+          echo ${versionString}
+          versionString=${versionString#v}
+          echo ${versionString}
+          versionString=${versionString%-*}
+          echo ${versionString}
+          echo "::set-output name=glob::./artifacts/pkg/Release/StirlingLabs.LLVMSharp.${versionString}.*.nupkg"
         env:
           versionString: ${{ github.ref_name }}
       - name: Push to GitHub Package Repo
         run: |
-            nupkgName="./artifacts/pkg/Release/LLVMSharp.${versionString:1}.*.nupkg"
-            echo $nupkgName
-            dotnet nuget push "${nupkgName}" --source ${pkgRepo} --api-key ${key} --skip-duplicate
+            dotnet nuget push "${glob}" --api-key ${key} --source ${pkgRepo} --skip-duplicate
         env:
+          glob: ${{ steps.set_nupkg.outputs.glob }}
           pkgRepo: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
           key: ${{ secrets.GITHUB_TOKEN }}
-          versionString: ${{ github.ref_name }}
-          name: ${{ steps.get_nupkg.outputs.name }}
       - name: Push to NuGet Package Repo
         if: |
             !contains(github.ref_name, '-') &&
             !github.event.release.prerelease
         run: |
-            nupkgName="./artifacts/pkg/Release/LLVMSharp.${versionString:1}.*.nupkg"
-            echo $nupkgName
-            dotnet nuget push "${nupkgName}" --api-key ${key} --source ${pkgRepo} --no-symbols --skip-duplicate
+            dotnet nuget push "${glob}" --api-key ${key} --source ${pkgRepo} --skip-duplicate --no-symbols
         env:
+          glob: ${{ steps.set_nupkg.outputs.glob }}
           pkgRepo: https://api.nuget.org/v3/index.json
           key: ${{ secrets.NUGET_STIRLINGLABS_API_KEY }}
-          versionString: ${{ github.ref_name }}
           

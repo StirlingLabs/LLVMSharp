@@ -41,7 +41,7 @@
     <Company>.NET Foundation</Company>
     <ContinuousIntegrationBuild Condition="'$(CI)' != ''">true</ContinuousIntegrationBuild>
     <PackageOutputPath>$(BaseArtifactsPath)pkg/$(Configuration)/</PackageOutputPath>
-    <Product>LLVMSharp</Product>
+    <Product>StirlingLabs.LLVMSharp</Product>
     <VersionPrefix>14.0.6</VersionPrefix>
     <VersionSuffix Condition="'$(GITHUB_SHA)' != ''">$(GITHUB_SHA.Substring(0,7))</VersionSuffix>
     <VersionSuffix Condition="'$(GITHUB_EVENT_NAME)' == 'pull_request'">pr$(GITHUB_REF_NAME.Split('/')[0])-$(GITHUB_HEAD_REF)-$(VersionSuffix)</VersionSuffix>
